@@ -1,0 +1,2 @@
+fontinfo is used to create a file with the info of the provided image.
+This file is then used by the BitmapFont class to load and render bitmap fonts.
