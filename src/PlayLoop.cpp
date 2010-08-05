@@ -19,8 +19,6 @@
 #include "DestroyLoop.hpp"
 #include "GameOver.hpp"
 
-#include <iostream>
-
 PlayLoop::PlayLoop(sf::RenderWindow *theRender, Board *theBoard)
 : Loop(theRender), mBoard(theBoard)
 {
@@ -42,7 +40,9 @@ void PlayLoop::Step()
 	
 		
 	mRender->Clear(sf::Color(240, 240, 240));
-	mBoard->DrawBlocks();
+	mBoard->DrawBackground();
+	mBoard->DrawCurrentColumn();
+	mBoard->DrawStaticBlocks();
 	mBoard->DrawScore();
 	mRender->Display();
 	
@@ -80,7 +80,6 @@ void PlayLoop::Step()
 			else
 			{
 				// Game over!
-				std::cout << "Game over!" << std::endl;
 				mBoard->PushLoop(new GameOver(mRender, mBoard));
 				End(); // End this loop
 				mBoard->Clear();

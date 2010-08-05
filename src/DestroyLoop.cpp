@@ -50,6 +50,8 @@ void DestroyLoop::Step()
 {
 	// Draw the blocks
 	mRender->Clear(sf::Color(240, 240, 240));
+	mBoard->DrawBackground();
+	mBoard->DrawCurrentColumn();
 	mBoard->DrawColorfulBlocks(); // Colorful blocks, doesn't matter the current mode
 	mBoard->DrawScore();
 	mRender->Display();

@@ -33,7 +33,10 @@ GameOver::GameOver(sf::RenderWindow *theRender, Board *theBoard)
 
 void GameOver::Step()
 {
-	mBoard->DrawBlocks();
+	
+	mBoard->DrawBackground();
+	mBoard->DrawCurrentColumn();
+	mBoard->DrawColorfulBlocks(); // Colorful blocks, doesn't matter the current mode
 	mBoard->DrawScore();
 	
 	if (mIter == mBlocks.end())

@@ -97,7 +97,8 @@ void Board::ChangeLoop(Loop *theLoop)
 	mCurrentLoop = NULL;
 }
 
-void Board::DrawBlocks()
+// Draw everything that is considered background
+void Board::DrawBackground()
 {
 	// Draw the next column
 	for (int i = 0 ; i < mNextColumn.size() ; i ++)
@@ -109,8 +110,16 @@ void Board::DrawBlocks()
 	s.SetPosition(START_X, START_Y);
 	mRender.Draw(s);
 	
-	DrawStaticBlocks();
-	
+	// Draw the score blocks
+	for (std::list<sf::Sprite>::iterator i = mScoreBlocks.begin(); i != mScoreBlocks.end(); i ++)
+	{
+		mRender.Draw(*i);
+	}
+}
+
+// Draw the current column (the one the player has control of)
+void Board::DrawCurrentColumn()
+{
 	// Draw the current column
 	for (std::list<Block>::iterator i = mColumn.begin(); i != mColumn.end(); i ++)
 	{
@@ -122,12 +131,6 @@ void Board::DrawBlocks()
 			spr.SetColor((*i).GetColor());
 			mRender.Draw(spr);
 		}
-	}
-	
-	// Draw the score blocks
-	for (std::list<sf::Sprite>::iterator i = mScoreBlocks.begin(); i != mScoreBlocks.end(); i ++)
-	{
-		mRender.Draw(*i);
 	}
 }
 

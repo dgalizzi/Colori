@@ -40,11 +40,12 @@ public:
 	Board();
 
 	// Drawing methods
-	void DrawBlocks();
 	void DrawColorfulBlocks();
 	void DrawStaticBlocks();
 	void DrawScore();
 	void DrawPause();
+	void DrawBackground();
+	void DrawCurrentColumn();
 	
 	// Handle input
 	void HandleEsc(sf::Event &theEvent);
@@ -93,6 +94,7 @@ public:
 		eRelax
 	};
 	inline void SetMode(Modes theMode) { mCurrentMode = theMode;}
+	inline Modes GetMode() { return mCurrentMode; }
 	
 protected:
 	std::list<Block> mBlocks;
