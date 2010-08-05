@@ -251,9 +251,15 @@ void Board::HandleEsc(sf::Event &theEvent)
 			if (mCurrentLoop)
 			{
 				mCurrentLoop->End();
+				return;
 			}
 		}
 	}
+	
+	// Check if window's event for close
+     if (theEvent.Type == sf::Event::Closed)
+         mCurrentLoop->End();
+
 }
 
 void Board::HandlePause(sf::Event &theEvent)

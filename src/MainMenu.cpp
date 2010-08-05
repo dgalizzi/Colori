@@ -174,6 +174,12 @@ void MainMenu::GetString()
 		mStringX = 412;
 		mStringY = 205;
 		mExit.SetColor(sf::Color::Blue);
+		
+		if (mClickReleased)
+		{
+			// Exit clicked, end the game
+			End();
+		}
 	}
 	else if (MouseInside(mCredits))
 	{
