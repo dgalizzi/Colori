@@ -35,7 +35,7 @@ MainMenu::MainMenu(sf::RenderWindow *theRender, Board *theBoard)
 	mTimeImg.LoadFromFile(gPrefix("images/timeAttack.png", s));
 	mRelaxImg.LoadFromFile(gPrefix("images/relax.png", s));
 	mHighImg.LoadFromFile(gPrefix("images/high.png", s));
-		
+
 	mLogo.SetImage(mLogoImg);
 	mLogo.SetPosition(16, 16);
 		

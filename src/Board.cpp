@@ -183,7 +183,8 @@ int Board::GetScoreNeededForLevel(int theLevel)
 	if (theLevel < 2)
 		return 0;
 		
-	return (int)(10*pow(1.5, theLevel-2));
+	//return (int)(30*pow(1.5, theLevel-2));
+	return (int) ((30+theLevel*2)*theLevel + pow(theLevel, 3));
 }
 
 void Board::AddScore(unsigned int theScore)
