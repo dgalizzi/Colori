@@ -1,1 +1,6 @@
 Colori is a three-match game (Columns' style) for GNU/Linux and Windows.
+
+It depends on the SFML libraries, precisely on:
+sfml-system
+sfml-window
+sfml-graphics
