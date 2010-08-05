@@ -20,7 +20,7 @@
 #include "Config.hpp"
 
 MainMenu::MainMenu(sf::RenderWindow *theRender, Board *theBoard)
-: Loop(theRender), mBoard(theBoard)
+: Loop(theRender), mBoard(theBoard), mClickReleased(false)
 {
 	std::string s;
 	
@@ -81,8 +81,7 @@ void MainMenu::ProcessEvent(sf::Event &theEvent)
 	// Mouse click
 	if (theEvent.Type == sf::Event::MouseButtonReleased)
 	{
-		mBoard->SetMode(Board::eArcade);
-		mBoard->PushLoop(new PlayLoop(mRender, mBoard));
+		mClickReleased = true;
 	}
 	
 	
@@ -124,6 +123,13 @@ void MainMenu::GetString()
 		mStringX = 392;
 		mStringY = 205;
 		mArcade.SetColor(sf::Color::Blue);
+		
+		if (mClickReleased)
+		{
+			mBoard->SetMode(Board::eArcade);
+			mBoard->Clear();
+			mBoard->PushLoop(new PlayLoop(mRender, mBoard));
+		}
 	}
 	else if (MouseInside(mTime))
 	{
@@ -131,6 +137,14 @@ void MainMenu::GetString()
 		mStringX = 392;
 		mStringY = 205;
 		mTime.SetColor(sf::Color::Blue);
+		
+		if (mClickReleased)
+		{
+			mBoard->SetMode(Board::eColorless);
+			mBoard->Clear();
+			mBoard->PushLoop(new PlayLoop(mRender, mBoard));
+		}
+
 	}
 	else if (MouseInside(mRelax))
 	{
@@ -138,10 +152,18 @@ void MainMenu::GetString()
 		mStringX = 392;
 		mStringY = 225;
 		mRelax.SetColor(sf::Color::Blue);
+		
+		if (mClickReleased)
+		{
+			mBoard->SetMode(Board::eRelax);
+			mBoard->Clear();
+			mBoard->PushLoop(new PlayLoop(mRender, mBoard));
+		}
+
 	}
 	else if (MouseInside(mHigh))
 	{
-		mString = "Highscores:";
+		mString = "Highscores";
 		mStringX = 412;
 		mStringY = 205;
 		mHigh.SetColor(sf::Color::Blue);
@@ -205,6 +227,7 @@ void MainMenu::Step()
 	
 	mRender->Display();
 	
-	
+	// Reset the click
+	mClickReleased = false;
 }
 

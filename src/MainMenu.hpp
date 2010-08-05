@@ -67,6 +67,8 @@ private:
 	
 	std::string mString;
 	int mStringX, mStringY;
+	
+	bool mClickReleased;
 };
 
 #endif
