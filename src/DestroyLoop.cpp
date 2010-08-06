@@ -74,7 +74,7 @@ void DestroyLoop::Step()
 		
 			// Add score
 			mBoard->AddScore( (int) (   mList.size() * (mList.size()/3) * mBoard->GetLevel() * (mBoard->GetCombo()*mBoard->GetCombo())    ));
-			
+
 			// Remove the destroyed blocks, using iterators makes possible to erase in constant time
 			for (std::list< std::list<Block>::iterator* >::iterator i = mList.begin(); i != mList.end(); i ++)
 			{
@@ -155,5 +155,9 @@ void DestroyLoop::Check(int dirX, int dirY)
 			}
 		}
 	}
+	
+	// Play the animation sound if required
+	if (!mList.empty())
+		mBoard->PlayAnimSound();
 }
 

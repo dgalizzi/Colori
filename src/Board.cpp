@@ -48,6 +48,28 @@ Board::Board()
 	mScoreBack.SetImage(mScoreBackImg);
 	mScoreBack.SetPosition(0, 300);
 	
+	// Audio
+
+	
+	// Sounds
+	mAnimSound.LoadFromFile(gPrefix("sounds/anim.wav", s));
+	mComboSound.LoadFromFile(gPrefix("sounds/combo.wav", s));
+	mOverSound.LoadFromFile(gPrefix("sounds/over.wav", s));
+	mTucSound.LoadFromFile(gPrefix("sounds/tuc.wav", s));
+	mSound.SetVolume(30.f);
+	 
+	mMusicRelax.push_back(gPrefix("music/relax/01-bluzynette.ogg", s));
+	mMusicRelax.push_back(gPrefix("music/relax/02-pomponette.ogg", s));
+	mMusicRelax.push_back(gPrefix("music/relax/03-musiquette.ogg", s));
+	mMusicRelax.push_back(gPrefix("music/relax/06-trotinette.ogg", s));
+								   						
+	mMusicArcade.push_back(gPrefix("music/arcade_time/Skapmat-2.ogg", s));
+	mMusicArcade.push_back(gPrefix("music/arcade_time/Skapmat-3.ogg", s));
+	mMusicArcade.push_back(gPrefix("music/arcade_time/Skapmat-4.ogg", s));
+	
+	mMusic.OpenFromFile(mMusicArcade[1]);
+	mMusic.Play();
+	
 	// Randomizer's seed
 	sf::Randomizer::SetSeed(time(NULL));
 	
@@ -62,6 +84,7 @@ Board::Board()
 	PushLoop(new MainMenu(&mRender, this));
 	
 	//delete mCurrentLoop;
+	mMusic.Stop();
 	mRender.Close();
 }
 
@@ -212,16 +235,32 @@ void Board::AddScore(unsigned int theScore)
 	{
 		++ mLevel;
 		
-		// New speed or new color?
-		// Every five levels add a new color, and let speed go back a level
-		if (mLevel % 5 == 0 && mColors < COLORS)
+		
+		// Difficulty stuff
+		
+		// Very easy:
+		if (mCurrentMode == eRelax)
 		{
-			++ mColors;
-			mSpeed *= 1.2;
+			// Every ten levels add a new color and speed up a little bit
+			if (mLevel % 10 == 0 && mColors < COLORS)
+			{
+				++ mColors;
+				mSpeed /= 1.3;
+			}			
 		}
 		else
-			mSpeed /= 1.2;
-			
+		{
+			// New speed or new color?
+			// Every five levels add a new color, and let speed go back a level
+			if (mLevel % 5 == 0 && mColors < COLORS)
+			{
+				++ mColors;
+				mSpeed *= 1.2;
+			}
+			else
+				mSpeed /= 1.2;
+		}
+		
 		// Level up! need to erase the score blocks
 		mScoreBlocks.clear();
 	}
@@ -546,6 +585,9 @@ void Board::SetLevel(int theLevel)
 void Board::AddCombo()
 {
 	++ mCombo;
+	
+	if (mCombo > 2)
+		PlayComboSound();
 }
 
 void Board::AddLevel()
@@ -553,4 +595,21 @@ void Board::AddLevel()
 	++ mLevel;
 }
 
-	
+void Board::DoMusic()
+{
+	// If done start playing again
+	if (mMusic.GetStatus() == sf::Sound::Stopped)
+	{
+		SetMusic();
+	} 
+}
+
+void Board::SetMusic()
+{
+	if (mCurrentMode == eArcade || mCurrentMode == eColorless)
+		mMusic.OpenFromFile(mMusicArcade[sf::Randomizer::Random(0, mMusicArcade.size()-1)]);
+	else
+		mMusic.OpenFromFile(mMusicRelax[sf::Randomizer::Random(0, mMusicRelax.size()-1)]);
+		
+	mMusic.Play();
+}

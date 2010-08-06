@@ -18,12 +18,16 @@
 #define BOARD_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <list>
 #include <stack>
 
 #include "Loop.hpp"
 #include "Block.hpp"
 #include "PlayLoop.hpp"
+#include "Config.hpp"
+
+
 
 /*
 	Loops:
@@ -77,6 +81,13 @@ public:
 	void AddScore(unsigned int theScore);
 	void Clear(); // Clear the blocks and data
 	
+	// Play sounds
+	inline void PlayAnimSound() { mSound.SetBuffer(mAnimSound);  mSound.Play(); }
+	inline void PlayComboSound(){ mSound.SetBuffer(mComboSound); mSound.Play(); }
+	inline void PlayOverSound() { mSound.SetBuffer(mOverSound);  mSound.Play(); }
+	inline void PlayTucSound()  { mSound.SetBuffer(mTucSound);   mSound.Play(); }
+	void SetMusic();
+	void DoMusic();
 	
 	int GetCombo();
 	int GetLevel();
@@ -128,6 +139,20 @@ protected:
 	std::list<sf::Sprite> mScoreBlocks;
 	
 	Modes mCurrentMode;
+	
+	// Audio
+	sf::Music mMusic;
+	
+	sf::SoundBuffer mAnimSound;
+	sf::SoundBuffer mComboSound;
+	sf::SoundBuffer mOverSound;
+	sf::SoundBuffer mTucSound;
+	
+	sf::Sound mSound;
+	
+	// Paths
+	std::vector<std::string> mMusicArcade;
+	std::vector<std::string> mMusicRelax;
 };
 
 #endif

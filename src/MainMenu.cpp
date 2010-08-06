@@ -127,6 +127,7 @@ void MainMenu::GetString()
 		if (mClickReleased)
 		{
 			mBoard->SetMode(Board::eArcade);
+			mBoard->SetMusic();
 			mBoard->Clear();
 			mBoard->PushLoop(new PlayLoop(mRender, mBoard));
 		}
@@ -141,6 +142,7 @@ void MainMenu::GetString()
 		if (mClickReleased)
 		{
 			mBoard->SetMode(Board::eColorless);
+			mBoard->SetMusic();
 			mBoard->Clear();
 			mBoard->PushLoop(new PlayLoop(mRender, mBoard));
 		}
@@ -148,14 +150,16 @@ void MainMenu::GetString()
 	}
 	else if (MouseInside(mRelax))
 	{
-		mString = "Just sit, play and relax. Enjoy the\nmusic and play without pressure.\nThe game will not get harder\nas you play, take your time.";
+		mString = "Just sit, play and relax. Enjoy the\nmusic and play without pressure.\nThe game will get harder\nvery slowly, enjoy.";
 		mStringX = 392;
 		mStringY = 225;
 		mRelax.SetColor(sf::Color::Blue);
 		
 		if (mClickReleased)
 		{
+			// Start playing!
 			mBoard->SetMode(Board::eRelax);
+			mBoard->SetMusic();
 			mBoard->Clear();
 			mBoard->PushLoop(new PlayLoop(mRender, mBoard));
 		}

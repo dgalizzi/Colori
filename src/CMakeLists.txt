@@ -5,7 +5,7 @@ file(GLOB colori_SRC *.cpp)
 #set (CMAKE_BUILD_TYPE Debug)
 
 add_executable(colori ${colori_SRC})
-target_link_libraries(colori sfml-system sfml-window sfml-graphics)
+target_link_libraries(colori sfml-system sfml-window sfml-graphics sfml-audio)
 install(TARGETS colori DESTINATION bin)
 
 install(DIRECTORY "${CMAKE_SOURCE_DIR}/bin/" DESTINATION share/colori)

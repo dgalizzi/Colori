@@ -46,6 +46,9 @@ void PlayLoop::Step()
 	mBoard->DrawScore();
 	mRender->Display();
 	
+	// Do music
+	mBoard->DoMusic();
+	
 	// Wait a second if it is a new column
 	if (mNewColumnClock.GetElapsedTime() < 1.f && !mRender->GetInput().IsKeyDown(sf::Key::Down))
 		return;
@@ -65,7 +68,9 @@ void PlayLoop::Step()
 			// Add the column to the main blocks list and check for game over.
 			if (mBoard->PushColumn())
 			{
-			
+				// Play the 'tuc' sound
+				mBoard->PlayTucSound();
+				
 				mBoard->PushLoop(new DestroyLoop(mRender, mBoard));
 			
 				// Clear combo
