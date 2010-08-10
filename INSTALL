@@ -1,0 +1,14 @@
+In order to build from source code you will need:
+cmake v2.6 minimum
+sfml-system v1.6
+sfml-window v1.6
+sfml-graphics v1.6
+sfml-audio v1.6
+
+Then open a terminal in this directory and do:
+cd build
+cmake ..
+make
+sudo make install
+
+Then run: colori
