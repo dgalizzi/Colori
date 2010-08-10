@@ -4,3 +4,4 @@ It depends on the SFML libraries, precisely on:
 sfml-system
 sfml-window
 sfml-graphics
+sfml-audio
