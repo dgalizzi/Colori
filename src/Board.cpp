@@ -15,8 +15,8 @@
 */
 
 #include "Board.hpp"
-
 #include "MainMenu.hpp"
+#include "Pause.hpp"
 
 // For sf::Randomizer
 #include <SFML/System.hpp>
@@ -120,13 +120,16 @@ void Board::ChangeLoop(Loop *theLoop)
 	mCurrentLoop = NULL;
 }
 
-// Draw everything that is considered background
-void Board::DrawBackground()
+void Board::DrawNextColumn()
 {
 	// Draw the next column
 	for (int i = 0 ; i < mNextColumn.size() ; i ++)
 		mRender.Draw(mNextColumn[i].GetAbsoluteSprite(mBlockImg));
+}
 
+// Draw everything that is considered background
+void Board::DrawBackground()
+{
 	// Draw the board
 	sf::Sprite s;
 	s.SetImage(mBoardImg);
@@ -308,6 +311,7 @@ void Board::HandlePause(sf::Event &theEvent)
 		// Pause
 		if (theEvent.Key.Code == sf::Key::P)
 		{
+			PushLoop(new Pause(&mRender, this));
 		}
 	}	
 }

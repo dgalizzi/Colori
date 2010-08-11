@@ -41,6 +41,7 @@ void PlayLoop::Step()
 		
 	mRender->Clear(sf::Color(240, 240, 240));
 	mBoard->DrawBackground();
+	mBoard->DrawNextColumn();
 	mBoard->DrawCurrentColumn();
 	mBoard->DrawStaticBlocks();
 	mBoard->DrawScore();

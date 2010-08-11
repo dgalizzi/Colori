@@ -50,6 +50,7 @@ public:
 	void DrawPause();
 	void DrawBackground();
 	void DrawCurrentColumn();
+	void DrawNextColumn();
 	
 	// Handle input
 	void HandleEsc(sf::Event &theEvent);

@@ -54,6 +54,7 @@ void DestroyLoop::Step()
 	mBoard->DrawCurrentColumn();
 	mBoard->DrawColorfulBlocks(); // Colorful blocks, doesn't matter the current mode
 	mBoard->DrawScore();
+	mBoard->DrawNextColumn();
 	mRender->Display();
 	
 	// Animate the blocks, then destroy them
@@ -92,6 +93,7 @@ void DestroyLoop::Step()
 
 void DestroyLoop::ProcessEvent(sf::Event &theEvent)
 {
+	mBoard->HandlePause(theEvent);
 }
 
 void DestroyLoop::Check(int dirX, int dirY)

@@ -62,6 +62,7 @@ void FallLoop::Step()
 	}
 	
 	mBoard->DrawBackground();
+	mBoard->DrawNextColumn();
 	mBoard->DrawCurrentColumn();
 	mBoard->DrawColorfulBlocks(); // Colorful blocks, doesn't matter the current mode
 	mBoard->DrawScore();	
@@ -77,6 +78,7 @@ void FallLoop::Step()
 
 void FallLoop::ProcessEvent(sf::Event &theEvent)
 {
+	mBoard->HandlePause(theEvent);
 }
 
 void FallLoop::Check()
