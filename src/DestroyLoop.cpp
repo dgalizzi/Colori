@@ -1,10 +1,10 @@
-/* 
+/*
 ** Copyright (c) 2010, Diego D. Galizzi
 **
 ** Permission to use, copy, modify, and/or distribute this software for any
 ** purpose with or without fee is hereby granted, provided that the above
 ** copyright notice and this permission notice appear in all copies.
-** 
+**
 ** THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 ** WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 ** MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -24,8 +24,8 @@ DestroyLoop::DestroyLoop(sf::RenderWindow *theRender, Board *theBoard)
 {
 		// Get the matrix
 		mMatrix = theBoard->GetMatrix();
-		
-		Check( 1,  0); // Right 
+
+		Check( 1,  0); // Right
 		//Check( 1, -1); // Right up
 		//Check( 0, -1); // Up
 		//Check(-1, -1); // Left up
@@ -33,9 +33,9 @@ DestroyLoop::DestroyLoop(sf::RenderWindow *theRender, Board *theBoard)
 		Check(-1,  1); // Left down
 		Check( 0,  1); // Down
 		Check( 1,  1); // Right down
-		
+
 		mClock.Reset();
-		
+
 		// This is a new combo
 		mBoard->AddCombo();
 }
@@ -55,24 +55,25 @@ void DestroyLoop::Step()
 	mBoard->DrawColorfulBlocks(); // Colorful blocks, doesn't matter the current mode
 	mBoard->DrawScore();
 	mBoard->DrawNextColumn();
+	mBoard->DoMusic(16, 16);
 	mRender->Display();
-	
+
 	// Animate the blocks, then destroy them
 	if (mClock.GetElapsedTime() > 0.03f)
 	{
 		mClock.Reset();
 		++ mFrame;
-		
+
 		// New frame
 		for (std::list< std::list<Block>::iterator* >::iterator i = mList.begin(); i != mList.end(); i ++)
 		{
 			(***i).SetFrame(mFrame);
 		}
-		
+
 		// Last step?
 		if (mFrame >= MAX_FRAME)
 		{
-		
+
 			// Add score
 			mBoard->AddScore( (int) (   mList.size() * (mList.size()/3) * mBoard->GetLevel() * (mBoard->GetCombo()*mBoard->GetCombo())    ));
 
@@ -81,12 +82,12 @@ void DestroyLoop::Step()
 			{
 				mBoard->EraseBlock(**i);
 			}
-			
+
 			// Make the floating blocks fall
 			mBoard->PushLoop(new FallLoop(mRender, mBoard));
-			
+
 			// End this loop
-			End();	
+			End();
 		}
 	}
 }
@@ -94,6 +95,7 @@ void DestroyLoop::Step()
 void DestroyLoop::ProcessEvent(sf::Event &theEvent)
 {
 	mBoard->HandlePause(theEvent);
+	mBoard->SwitchMute(theEvent);
 }
 
 void DestroyLoop::Check(int dirX, int dirY)
@@ -101,10 +103,10 @@ void DestroyLoop::Check(int dirX, int dirY)
 
 	sf::Color color;
 	int matches; // Count of consecutive colors
-	
+
 	// The possible matches
 	std::list<std::list<Block>::iterator*> possibleMatches;
-	
+
 	// From left to right to bottom
 	for (int j = 0; j < mMatrix[0].size() ; j ++)
 	{
@@ -112,41 +114,41 @@ void DestroyLoop::Check(int dirX, int dirY)
 		{
 			if (!mMatrix[i][j])
 				continue; // NULL pointer, empty cell.
-				
+
 			possibleMatches.clear();
 			color = (**mMatrix[i][j]).GetColor();
-				
+
 			// Itself
 			possibleMatches.push_back(mMatrix[i][j]);
-			matches = 1; 
-			
+			matches = 1;
+
 			int ii = i+dirX;
 			int jj = j+dirY;
 			// Check for consecutive matching colors in the desired direction
-			while (CheckBoundary(ii, jj) 
+			while (CheckBoundary(ii, jj)
 			   && (mMatrix[ii][jj]) // check for not-NULL iterator
 			   && (**mMatrix[ii][jj]).GetColor() == color)
 			{
 				possibleMatches.push_back(mMatrix[ii][jj]);
-				++ matches; 
+				++ matches;
 				ii += dirX;
 				jj += dirY;
 			}
-				
-			
+
+
 			if (matches >= NMATCH)
 			{
 				// Append the new matches, only if it doesn't exists already
 				std::list<std::list<Block>::iterator*>::iterator it;
-				
+
 				for (std::list<std::list<Block>::iterator*>::iterator ii = possibleMatches.begin(); ii != possibleMatches.end() ; ii++)
 				{
 					it = mList.begin();
-					
+
 					// Search if already exists
 					while (*it != *ii && it != mList.end())
 						++ it;
-					
+
 					// If not found
 					if (it == mList.end())
 					{
@@ -157,9 +159,8 @@ void DestroyLoop::Check(int dirX, int dirY)
 			}
 		}
 	}
-	
+
 	// Play the animation sound if required
 	if (!mList.empty())
 		mBoard->PlayAnimSound();
 }
-

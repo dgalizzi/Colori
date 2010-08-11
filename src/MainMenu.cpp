@@ -1,10 +1,10 @@
-/* 
+/*
 ** Copyright (c) 2010, Diego D. Galizzi
 **
 ** Permission to use, copy, modify, and/or distribute this software for any
 ** purpose with or without fee is hereby granted, provided that the above
 ** copyright notice and this permission notice appear in all copies.
-** 
+**
 ** THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 ** WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 ** MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -23,7 +23,7 @@ MainMenu::MainMenu(sf::RenderWindow *theRender, Board *theBoard)
 : Loop(theRender), mBoard(theBoard), mClickReleased(false)
 {
 	std::string s;
-	
+
 	mLogoImg.LoadFromFile(gPrefix("images/logo.png", s));
 	mButtonImg.LoadFromFile(gPrefix("images/button.png", s));
 	mSmallButtonImg.LoadFromFile(gPrefix("images/small_button.png", s));
@@ -38,34 +38,34 @@ MainMenu::MainMenu(sf::RenderWindow *theRender, Board *theBoard)
 
 	mLogo.SetImage(mLogoImg);
 	mLogo.SetPosition(16, 16);
-		
+
 	mTextBlock.SetImage(mTextBlockImg);
 	mTextBlock.SetPosition(370, 170);
-	
-	
+
+
 	// Texts buttons
 	mArcade.SetImage(mArcadeImg);
 	mArcade.SetPosition(42, 120);
-	
+
 	mTime.SetImage(mTimeImg);
 	mTime.SetPosition(42, 120*2);
-	
+
 	mRelax.SetImage(mRelaxImg);
 	mRelax.SetPosition(42, 120*3);
-	
+
 	mHigh.SetImage(mHighImg);
 	mHigh.SetPosition(42, 120*4);
-	
+
 	mButton.SetImage(mButtonImg);
 	mSmallButton.SetImage(mSmallButtonImg);
-	
+
 	mExit.SetImage(mExitImg);
 	mExit.SetPosition(650, 450);
-	
+
 	mCredits.SetImage(mCreditsImg);
 	mCredits.SetPosition(650, 0);
-	
-	
+
+
 	// Font
 	mFont.Load(gPrefix("font/font.png", s), gPrefix("font/font", s));
 	mFont.SetRender(mRender);
@@ -77,14 +77,15 @@ MainMenu::~MainMenu()
 void MainMenu::ProcessEvent(sf::Event &theEvent)
 {
 	mBoard->HandleEsc(theEvent);
-	
+	mBoard->SwitchMute(theEvent);
+
 	// Mouse click
 	if (theEvent.Type == sf::Event::MouseButtonReleased)
 	{
 		mClickReleased = true;
 	}
-	
-	
+
+
 //
 	if (theEvent.Type == sf::Event::KeyReleased)
 	{
@@ -96,7 +97,7 @@ void MainMenu::ProcessEvent(sf::Event &theEvent)
 	}
 }
 
-bool MainMenu::MouseInside(sf::Sprite &theSprite)
+bool MainMenu::MouseInside(sf::Sprite theSprite)
 {
 	return (theSprite.GetSubRect().Contains(mMouseX-theSprite.GetPosition().x, mMouseY-theSprite.GetPosition().y));
 }
@@ -106,9 +107,9 @@ void MainMenu::GetString()
 	// Mouse cursor position
 	mMouseX = mRender->GetInput().GetMouseX();
 	mMouseY = mRender->GetInput().GetMouseY();
-	
-	// 
-	
+
+	//
+
 	// Reset colors
 	mArcade.SetColor(sf::Color::Red);
 	mTime.SetColor(sf::Color::Red);
@@ -123,7 +124,7 @@ void MainMenu::GetString()
 		mStringX = 392;
 		mStringY = 205;
 		mArcade.SetColor(sf::Color::Blue);
-		
+
 		if (mClickReleased)
 		{
 			mBoard->SetMode(Board::eArcade);
@@ -138,7 +139,7 @@ void MainMenu::GetString()
 		mStringX = 392;
 		mStringY = 205;
 		mTime.SetColor(sf::Color::Blue);
-		
+
 		if (mClickReleased)
 		{
 			mBoard->SetMode(Board::eColorless);
@@ -154,7 +155,7 @@ void MainMenu::GetString()
 		mStringX = 392;
 		mStringY = 225;
 		mRelax.SetColor(sf::Color::Blue);
-		
+
 		if (mClickReleased)
 		{
 			// Start playing!
@@ -178,7 +179,7 @@ void MainMenu::GetString()
 		mStringX = 412;
 		mStringY = 205;
 		mExit.SetColor(sf::Color::Blue);
-		
+
 		if (mClickReleased)
 		{
 			// Exit clicked, end the game
@@ -192,6 +193,13 @@ void MainMenu::GetString()
 		mStringY = 205;
 		mCredits.SetColor(sf::Color::Blue);
 	}
+	else if (MouseInside(mSmallButton))
+	{
+		mString = "Press this button or the M key to\nmute or unmute the game.";
+		mStringX = 392;
+		mStringY = 205;
+		//mBoard->GetMuteSprite()->SetColor(sf::Color::Blue);
+	}
 	else
 	{
 		mString = "Welcome to COLORI!\nA game where you have to\nmatch colors. You can play the\nclassic mode, against time or\njust sit and play a relaxing mode.\nHave fun!";
@@ -204,24 +212,28 @@ void MainMenu::Step()
 {
 	// Background
 	mRender->Clear(sf::Color(240, 240, 240));
-	
+
 	// Stuff
 	mRender->Draw(mLogo);
 	mRender->Draw(mTextBlock);
-	
+
 	// Credits and exit buttons
 	mSmallButton.SetPosition(650, 450);
 	mRender->Draw(mSmallButton);
 	mSmallButton.SetPosition(650, 0);
 	mRender->Draw(mSmallButton);
-	
+
 	mRender->Draw(mCredits);
 	mRender->Draw(mExit);
-	
+
+	mSmallButton.SetPosition(370, 450);
+	mRender->Draw(mSmallButton);
+	mBoard->DoMusic(410, 480);
+
 	// Draw the string
 	GetString();
 	mFont.DrawString(mString.c_str(), mStringX, mStringY);
-		
+
 	// Four button
 	mButton.SetPosition(42, 120);
 	for (int i = 0 ; i < 4 ; i ++)
@@ -229,15 +241,14 @@ void MainMenu::Step()
 		mRender->Draw(mButton);
 		mButton.Move(0, 120);
 	}
-	
+
 	mRender->Draw(mArcade);
 	mRender->Draw(mTime);
 	mRender->Draw(mRelax);
 	mRender->Draw(mHigh);
-	
+
 	mRender->Display();
-	
+
 	// Reset the click
 	mClickReleased = false;
 }
-

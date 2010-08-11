@@ -1,10 +1,10 @@
-/* 
+/*
 ** Copyright (c) 2010, Diego D. Galizzi
 **
 ** Permission to use, copy, modify, and/or distribute this software for any
 ** purpose with or without fee is hereby granted, provided that the above
 ** copyright notice and this permission notice appear in all copies.
-** 
+**
 ** THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 ** WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 ** MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -23,22 +23,23 @@ GameOver::GameOver(sf::RenderWindow *theRender, Board *theBoard)
 	mClock.Reset();
 	mBlocks = mBoard->GetBlocks();
 	mIter = mBlocks.begin();
-	
+
 	std::string s;
 	mGameOverImg.LoadFromFile(gPrefix("images/game_over.png", s));
-	
+
 	mGameOver.SetImage(mGameOverImg);
 	mGameOver.SetPosition(200, 600);
 }
 
 void GameOver::Step()
 {
-	
+
 	mBoard->DrawBackground();
+	mBoard->DoMusic(16, 16);
 	mBoard->DrawCurrentColumn();
 	mBoard->DrawColorfulBlocks(); // Colorful blocks, doesn't matter the current mode
 	mBoard->DrawScore();
-	
+
 	if (mIter == mBlocks.end())
 	{
 		if (mClock.GetElapsedTime() > 0.005f)
@@ -52,7 +53,7 @@ void GameOver::Step()
 			}
 			mClock.Reset();
 		}
-			
+
 		mRender->Draw(mGameOver);
 	}
 	else
@@ -65,13 +66,14 @@ void GameOver::Step()
 			mClock.Reset();
 		}
 	}
-	
 
-	
+
+
 	mRender->Display();
 	mRender->Clear(sf::Color(240, 240, 240));
 }
 
 void GameOver::ProcessEvent(sf::Event &theEvent)
 {
+	mBoard->SwitchMute(theEvent);
 }

@@ -1,10 +1,10 @@
-/* 
+/*
 ** Copyright (c) 2010, Diego D. Galizzi
 **
 ** Permission to use, copy, modify, and/or distribute this software for any
 ** purpose with or without fee is hereby granted, provided that the above
 ** copyright notice and this permission notice appear in all copies.
-** 
+**
 ** THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 ** WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 ** MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -33,34 +33,35 @@ void PlayLoop::ProcessEvent(sf::Event &theEvent)
 	mBoard->HandleEsc(theEvent);
 	mBoard->HandlePause(theEvent);
 	mBoard->HandleMovement(theEvent);
+	mBoard->SwitchMute(theEvent);
 }
 
 void PlayLoop::Step()
 {
-	
-		
+
+
 	mRender->Clear(sf::Color(240, 240, 240));
 	mBoard->DrawBackground();
+	mBoard->DoMusic(16, 16);
 	mBoard->DrawNextColumn();
 	mBoard->DrawCurrentColumn();
 	mBoard->DrawStaticBlocks();
 	mBoard->DrawScore();
 	mRender->Display();
-	
-	// Do music
-	mBoard->DoMusic();
-	
+
+
+
 	// Wait a second if it is a new column
-	if (mNewColumnClock.GetElapsedTime() < 1.f && !mRender->GetInput().IsKeyDown(sf::Key::Down))
-		return;
-		
+	//if (mNewColumnClock.GetElapsedTime() < 1.f && !mRender->GetInput().IsKeyDown(sf::Key::Down))
+		//return;
+
 	// Move column down
-	if (mClock.GetElapsedTime() > mBoard->GetSpeed() || 
+	if (mClock.GetElapsedTime() > mBoard->GetSpeed() ||
 		(mRender->GetInput().IsKeyDown(sf::Key::Down) && mInputClock.GetElapsedTime() > 0.05f))
 	{
 		mClock.Reset();
 		mInputClock.Reset();
-		
+
 		// Move down
 		if (!mBoard->MoveColumn(sf::Vector2f(0, 1)))
 		{
@@ -71,21 +72,22 @@ void PlayLoop::Step()
 			{
 				// Play the 'tuc' sound
 				mBoard->PlayTucSound();
-				
+
 				mBoard->PushLoop(new DestroyLoop(mRender, mBoard));
-			
+
 				// Clear combo
 				mBoard->SetCombo(0);
-			
+
 				// Ask for new column
 				mBoard->CreateColumn(COLUMN_SIZE);
-			
+
 				// Give the player just a second to recover
 				//mNewColumnClock.Reset();
 			}
 			else
 			{
 				// Game over!
+				mBoard->PlayOverSound();
 				mBoard->PushLoop(new GameOver(mRender, mBoard));
 				End(); // End this loop
 				mBoard->Clear();

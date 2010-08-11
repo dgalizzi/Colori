@@ -1,10 +1,10 @@
-/* 
+/*
 ** Copyright (c) 2010, Diego D. Galizzi
 **
 ** Permission to use, copy, modify, and/or distribute this software for any
 ** purpose with or without fee is hereby granted, provided that the above
 ** copyright notice and this permission notice appear in all copies.
-** 
+**
 ** THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 ** WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 ** MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -48,16 +48,16 @@ public:
 
 	sf::Sprite GetSprite(sf::Image &theImage);
 	sf::Sprite GetAbsoluteSprite(sf::Image &theImage);
-	
+
 	sf::Color GetColor();
 	void SetColor(sf::Color theColor);
-	
+
 	sf::Vector2f GetPosition();
 	void SetPosition(sf::Vector2f thePos);
-	
+
 	int GetFrame();
 	void SetFrame(int theFrame);
-	
+
 	void Move(sf::Vector2f theDir);
 
 private:
@@ -67,4 +67,3 @@ private:
 };
 
 #endif
-
