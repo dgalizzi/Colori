@@ -9,8 +9,10 @@
 	<body>
 		<h1>{{ page.title }}</h1>
 
-		{{ content }}
-
+		{% for section in site.content %}
+			<h2>{{ section.title }}</h2>
+			{{ section.content }}
+		{% enfor %}
 	</body>
 </html>
 
