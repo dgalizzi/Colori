@@ -26,6 +26,7 @@
 #include <iostream>
 
 #include "Config.hpp"
+#include "Highscores.hpp"
 
 
 Board::Board()

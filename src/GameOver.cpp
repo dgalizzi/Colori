@@ -16,6 +16,7 @@
 
 #include "GameOver.hpp"
 #include "Config.hpp"
+#include "Highscores.hpp"
 
 GameOver::GameOver(sf::RenderWindow *theRender, Board *theBoard)
 : Loop(theRender), mBoard(theBoard)
@@ -29,6 +30,9 @@ GameOver::GameOver(sf::RenderWindow *theRender, Board *theBoard)
 
 	mGameOver.SetImage(mGameOverImg);
 	mGameOver.SetPosition(200, 600);
+
+	// Check for highscores
+	Highscores h(mBoard->GetScore(), mBoard->GetLevel(), (int)mBoard->GetMode());
 }
 
 void GameOver::Step()

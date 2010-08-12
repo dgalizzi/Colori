@@ -99,6 +99,7 @@ public:
 	void AddCombo();
 	void AddLevel();
 	float GetSpeed();
+	inline unsigned int GetScore() { return mScore; }
 
 	// Variants
 	enum Modes

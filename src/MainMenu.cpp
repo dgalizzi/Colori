@@ -18,6 +18,10 @@
 #include "Board.hpp"
 #include "PlayLoop.hpp"
 #include "Config.hpp"
+#include "Highscores.hpp"
+
+#include <string>
+#include <sstream>
 
 MainMenu::MainMenu(sf::RenderWindow *theRender, Board *theBoard)
 : Loop(theRender), mBoard(theBoard), mClickReleased(false)
@@ -168,9 +172,14 @@ void MainMenu::GetString()
 	}
 	else if (MouseInside(mHigh))
 	{
-		mString = "Highscores";
-		mStringX = 412;
-		mStringY = 205;
+		Highscores hs;
+		std::ostringstream oss;
+		oss << "Highscores\n" << "Arcade\nScore: " << hs.GetHighscore(0).score << " Level " << hs.GetHighscore(0).level << std::endl;
+		oss << "Colorless\nScore " << hs.GetHighscore(1).score << " Level " << hs.GetHighscore(1).level << std::endl;
+		oss << "Relax\nScore " << hs.GetHighscore(2).score << " Level " << hs.GetHighscore(2).level << std::endl;
+		mString = oss.str();
+		mStringX = 392;
+		mStringY = 194;
 		mHigh.SetColor(sf::Color::Blue);
 	}
 	else if (MouseInside(mExit))
