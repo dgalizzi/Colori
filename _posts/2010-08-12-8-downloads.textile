@@ -12,6 +12,7 @@ cmake ..
 make
 sudo make install
 colori</code></pre>
+Alternatively, you can download the latest tag from the "downloads page":http://github.com/tempestad/Colori/downloads
 In order to build from source code you will need:
 * "cmake":http://www.cmake.org/ v2.6 minimum
 * "sfml-system":http://www.sfml-dev.org/ v1.6
