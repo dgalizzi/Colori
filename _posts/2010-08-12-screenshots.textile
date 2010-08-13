@@ -3,3 +3,11 @@ title: Screenshots
 ---
 Here are some screenshots of the game:
 
+This is the main menu, you can choose different variants of the game:
+!../screenshots/menu.png!
+
+Here is a screenshot playing the arcade mode:
+!../screenshots/arcade.png!
+
+In this one I'm playing the Colorless mode, you have to remember the colors of the blocks that are already down.
+!../screenshots/colorless.png!
