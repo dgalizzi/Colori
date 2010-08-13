@@ -1,0 +1,31 @@
+---
+title: License
+---
+
+The source code and binary files of the software are distributed with the ISC License (at the end). The media files are distributed under a Creative Commons license, for more information see below.
+
+All files in the directories font/, images/ and sounds/ are distributed under the "Creative Commons Attribution 3.0 Unported":http://creativecommons.org/licenses/by/3.0/ Credits to "Colori":http://github.com/tempestad/Colori
+
+The files in the directory music/arcade_time/ are under the "Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported":http://creativecommons.org/licenses/by-nc-sa/3.0/ license. Credits to "Christian Bjoerklund":http://freemusicarchive.org/music/Christian_Bjoerklund/
+
+The files in the directory music/relax/ are under the "Creative Commons Attribution-NonCommercial-ShareAlike 2.5 Generic":http://creativecommons.org/licenses/by-nc-sa/2.5/ license. Credits to "Bibopof":http://bibopof.free.fr/
+
+
+*Note:*
+All files in the directory music/ were converted from stereo to mono, and resampled from the original. Also converted from mp3 to ogg format.
+
+
+_ISC License_:
+
+Copyright (c) 2010, Diego D. Galizzi
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
