@@ -1,0 +1,22 @@
+---
+title: Download
+---
+Currently there is a binary build only for *Windows 32-bit*.
+"Download binaries for Windows here":http://github.com/downloads/tempestad/Colori/Colori_v0.9_windows_32_bin.zip
+You might need to install OpenAL first, the installer is in the zip file. Extract the zip file, install OpenAL and run colori.exe.
+
+For *GNU/Linux* you can download the latest version using git, and then install:
+<pre><code>git clone git://github.com/tempestad/Colori.git colori
+cd colori/build
+cmake ..
+make
+sudo make install
+colori</code></pre>
+In order to build from source code you will need:
+* "cmake":http://www.cmake.org/ v2.6 minimum
+* "sfml-system":http://www.sfml-dev.org/ v1.6
+* "sfml-window":http://www.sfml-dev.org/ v1.6
+* "sfml-graphics":http://www.sfml-dev.org/ v1.6
+* "sfml-audio":http://www.sfml-dev.org/ v1.6
+
+SFML v1.5 seems to work too.

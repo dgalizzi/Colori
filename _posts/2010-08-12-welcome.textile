@@ -1,5 +1,0 @@
----
-title: Welcome to Colori!
----
-
-Colori is a game ...

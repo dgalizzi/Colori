@@ -1,0 +1,7 @@
+---
+title: Welcome to Colori!
+---
+
+*_Colori_* is a three-match game (Columns' style) for GNU/Linux and Windows. It features sounds, music, highscores and different modes to play. The goal of the game is to match three colors together, this will destroy them and the blocks will fall, you can also make combos. The game never ends, you play for the highscore.
+
+The game features three different variants. The first one is the Arcade mode, the speed goes up every time you level up, and every once in a while you get a new color too. The second one, the Colorless mode, is the same as the first, with a little twist, you only get to see the colors of the blocks you are controlling. Finally there is a Relax mode, where the speeds goes up really slowly, think of it as an easy mode.
