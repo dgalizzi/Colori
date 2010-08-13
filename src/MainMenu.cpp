@@ -174,7 +174,7 @@ void MainMenu::GetString()
 	{
 		Highscores hs;
 		std::ostringstream oss;
-		oss << "Highscores\n" << "Arcade\nScore: " << hs.GetHighscore(0).score << " Level " << hs.GetHighscore(0).level << std::endl;
+		oss << "Highscores\n" << "Arcade\nScore " << hs.GetHighscore(0).score << " Level " << hs.GetHighscore(0).level << std::endl;
 		oss << "Colorless\nScore " << hs.GetHighscore(1).score << " Level " << hs.GetHighscore(1).level << std::endl;
 		oss << "Relax\nScore " << hs.GetHighscore(2).score << " Level " << hs.GetHighscore(2).level << std::endl;
 		mString = oss.str();
